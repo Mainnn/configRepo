@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: employee
+          uri: http://employee-service:8081
+          predicates:
+            - Path=/employees/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Gateway,GatewayService
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
